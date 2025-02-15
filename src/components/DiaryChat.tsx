@@ -55,7 +55,7 @@ export default function DiaryChat({
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-grow overflow-hidden">
-        <ScrollArea className="h-full pr-4">
+        <ScrollArea className="h-full">
           {messages.map((message) => (
             <div
               key={message.id}
