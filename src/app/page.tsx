@@ -1,10 +1,6 @@
-import TodaysDiary from "@/components/TodaysDiary"
+import DiaryHistory from "@/components/DiaryHistory";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-[#fffaf0] dark:bg-gray-900">
-      <TodaysDiary />
-    </main>
-  )
+  return <DiaryHistory />;
 }
 
