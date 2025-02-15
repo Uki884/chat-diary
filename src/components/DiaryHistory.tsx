@@ -3,8 +3,9 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { CalendarIcon, BookOpenIcon } from "lucide-react"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { CalendarIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 type DiaryEntry = {
   id: number
@@ -21,6 +22,7 @@ const moodEmoji = {
 }
 
 export default function DiaryHistory() {
+  const router = useRouter();
   const [entries, setEntries] = useState<DiaryEntry[]>([
     {
       id: 1,
@@ -50,20 +52,23 @@ export default function DiaryHistory() {
       mood: "sad",
       conversation: [],
     },
-  ])
+  ]);
+
+  const handleCardClick = (id: number) => {
+    router.push(`/diary/${id}`);
+  };
 
   return (
     <Card className="w-full max-w-4xl h-[80vh] flex flex-col bg-[#fffaf0] dark:bg-gray-800 mx-auto">
-      <CardHeader>
-        <CardTitle className="text-2xl font-serif text-center">日記一覧</CardTitle>
-      </CardHeader>
       <CardContent className="flex-grow overflow-hidden">
         <ScrollArea className="h-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             {entries.map((entry) => (
               <Dialog key={entry.id}>
                 <DialogTrigger asChild>
-                  <Card className="cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-700">
+                  <Card
+                    className="cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-700"
+                    onClick={() => handleCardClick(entry.id)}>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
                         <CalendarIcon className="w-4 h-4 inline-block mr-2" />
@@ -81,44 +86,6 @@ export default function DiaryHistory() {
                     </CardContent>
                   </Card>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center justify-between">
-                      <span>
-                        <CalendarIcon className="w-5 h-5 inline-block mr-2" />
-                        {new Date(entry.date).toLocaleDateString("ja-JP", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          weekday: "long",
-                        })}
-                      </span>
-                      <span className="text-2xl">{moodEmoji[entry.mood]}</span>
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="mt-4">
-                    <h3 className="text-lg font-semibold mb-2 flex items-center">
-                      <BookOpenIcon className="w-5 h-5 mr-2" />
-                      要約
-                    </h3>
-                    <p>{entry.summary}</p>
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="text-lg font-semibold mb-2">詳細な記録</h3>
-                    {entry.conversation.map((message, index) => (
-                      <div
-                        key={index}
-                        className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"} mb-4`}
-                      >
-                        <div
-                          className={`py-2 px-3 rounded-lg ${message.sender === "user" ? "bg-blue-100 dark:bg-blue-700" : "bg-gray-100 dark:bg-gray-600"}`}
-                        >
-                          {message.content}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </DialogContent>
               </Dialog>
             ))}
           </div>
