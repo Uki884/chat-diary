@@ -15,7 +15,7 @@ export const FooterNav = () => {
         </Link>
         <Link href="/today" className="flex flex-col items-center p-2">
           <PenTool size={24} />
-          <span className="text-xs mt-1">新規作成</span>
+          <span className="text-xs mt-1">今日の日記</span>
         </Link>
         <Link href="/settings" className="flex flex-col items-center p-2">
           <Settings size={24} />
