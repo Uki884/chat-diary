@@ -59,7 +59,7 @@ export default function DiaryHistory() {
   };
 
   return (
-    <Card className="w-full max-w-4xl h-[80vh] flex flex-col bg-[#fffaf0] dark:bg-gray-800 mx-auto">
+    <Card className="w-full max-w-4xl h-[80vh] flex flex-col dark:bg-gray-800 mx-auto">
       <CardContent className="flex-grow overflow-hidden">
         <ScrollArea className="h-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">

@@ -12,7 +12,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
-import { CalendarIcon } from "lucide-react";
 
 export type Message = {
   id: number;
@@ -31,6 +30,7 @@ export default function DiaryChat({
   date,
   initialMessages,
 }: DiaryChatProps) {
+  console.log("messages", initialMessages);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
 
@@ -45,16 +45,13 @@ export default function DiaryChat({
   };
 
   return (
-    <Card className="w-full max-w-2xl h-[80vh] flex flex-col bg-[#fffaf0] dark:bg-gray-800 mx-auto">
+    <Card className="w-full max-w-2xl h-[80vh] flex flex-col dark:bg-gray-800 mx-auto">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-serif flex items-center justify-center">
-          <CalendarIcon className="w-5 h-5 mr-2" />
-          {new Date(date).toLocaleDateString("ja-JP", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            weekday: "long",
-          })}
+        <CardTitle className="text-2xl font-serif flex items-center justify-between">
+          {date}
+          <Button variant="outline" onClick={handleSend} className="">
+            日記を終える
+          </Button>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-grow overflow-hidden">
@@ -92,15 +89,17 @@ export default function DiaryChat({
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
         <Textarea
-          placeholder="追加のコメントや感想を書いてください..."
+          placeholder="今日の出来事や感情を自由に書いてください..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
           className="w-full min-h-[100px] bg-white dark:bg-gray-700"
         />
-        <Button onClick={handleSend} className="w-full">
-          追加
-        </Button>
+        <div className="flex w-full space-x-2">
+          <Button onClick={handleSend} className="flex-1">
+            書く
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );
