@@ -45,7 +45,7 @@ export default function DiaryChat({
   };
 
   return (
-    <Card className="w-full max-w-2xl h-[80vh] flex flex-col bg-[#fffaf0] dark:bg-gray-800">
+    <Card className="w-full max-w-2xl h-[80vh] flex flex-col bg-[#fffaf0] dark:bg-gray-800 mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl font-serif flex items-center justify-center">
           <CalendarIcon className="w-5 h-5 mr-2" />
