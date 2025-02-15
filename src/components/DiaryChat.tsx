@@ -46,7 +46,7 @@ export default function DiaryChat({
 
   return (
     <Card className="w-full max-w-2xl h-[80vh] flex flex-col dark:bg-gray-800 mx-auto">
-      <CardHeader className="text-center">
+      <CardHeader className="text-center pb-4">
         <CardTitle className="text-2xl font-serif flex items-center justify-between">
           {date}
           <Button variant="outline" onClick={handleSend} className="">

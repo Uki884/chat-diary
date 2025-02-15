@@ -60,38 +60,39 @@ export default function DiaryHistory() {
 
   return (
     <Card className="w-full max-w-4xl h-[80vh] flex flex-col dark:bg-gray-800 mx-auto">
-      <CardContent className="flex-grow overflow-hidden">
-        <ScrollArea className="h-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-            {entries.map((entry) => (
-              <Dialog key={entry.id}>
-                <DialogTrigger asChild>
-                  <Card
-                    className="cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-700"
-                    onClick={() => handleCardClick(entry.id)}>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        <CalendarIcon className="w-4 h-4 inline-block mr-2" />
-                        {new Date(entry.date).toLocaleDateString("ja-JP", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          weekday: "long",
-                        })}
-                      </CardTitle>
-                      <div className="text-2xl">{moodEmoji[entry.mood]}</div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground line-clamp-3">{entry.summary}</p>
-                    </CardContent>
-                  </Card>
-                </DialogTrigger>
-              </Dialog>
-            ))}
-          </div>
-        </ScrollArea>
-      </CardContent>
+      <ScrollArea className="h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {entries.map((entry) => (
+            <Dialog key={entry.id}>
+              <DialogTrigger asChild>
+                <Card
+                  className="cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-700"
+                  onClick={() => handleCardClick(entry.id)}
+                >
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      <CalendarIcon className="w-4 h-4 inline-block mr-2" />
+                      {new Date(entry.date).toLocaleDateString("ja-JP", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        weekday: "long",
+                      })}
+                    </CardTitle>
+                    <div className="text-2xl">{moodEmoji[entry.mood]}</div>
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {entry.summary}
+                    </p>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+            </Dialog>
+          ))}
+        </div>
+      </ScrollArea>
     </Card>
-  )
+  );
 }
 
