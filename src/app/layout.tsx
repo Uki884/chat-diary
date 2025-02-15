@@ -1,10 +1,9 @@
 import "./globals.css";
 
 import type React from "react";
-import Link from "next/link";
 import { ThemeProvider } from "@/components/themeProvider";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
+import { FooterNav } from "@/components/FooterNav";
 
 export default function RootLayout({
   children,
@@ -25,16 +24,11 @@ export default function RootLayout({
             <header className="container mx-auto p-4 flex justify-between items-center">
               <h1 className="text-3xl font-serif font-bold">My Diary</h1>
               <nav className="flex items-center space-x-4">
-                <Link href="/today">
-                  <Button variant="ghost">今日の日記</Button>
-                </Link>
-                <Link href="/">
-                  <Button variant="ghost">日記一覧</Button>
-                </Link>
                 <ModeToggle />
               </nav>
             </header>
             <main className="container mx-auto p-4">{children}</main>
+            <FooterNav />
           </div>
         </ThemeProvider>
       </body>
