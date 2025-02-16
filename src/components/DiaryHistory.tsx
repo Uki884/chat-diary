@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, PlusIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 type DiaryEntry = {
@@ -62,6 +62,31 @@ export default function DiaryHistory() {
     <Card className="w-full max-w-4xl flex flex-col dark:bg-gray-800 mx-auto">
       <ScrollArea className="h-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Card
+                className="cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-700"
+                onClick={() => router.push(`/today`)}
+              >
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    <CalendarIcon className="w-4 h-4 inline-block mr-2" />
+                    {new Date().toLocaleDateString("ja-JP", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      weekday: "long",
+                    })}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 pt-0">
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex items-center justify-center">
+                    <PlusIcon className="w-10 h-10" />
+                  </p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+          </Dialog>
           {entries.map((entry) => (
             <Dialog key={entry.id}>
               <DialogTrigger asChild>
