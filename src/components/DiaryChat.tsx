@@ -17,6 +17,7 @@ export type Message = {
   id: number;
   content: string;
   sender: "ai" | "user";
+  timestamp: Date;
 };
 
 type DiaryChatProps = {
@@ -38,7 +39,7 @@ export default function DiaryChat({
     if (input.trim()) {
       setMessages([
         ...messages,
-        { id: messages.length + 1, content: input, sender: "user" },
+        { id: messages.length + 1, content: input, sender: "user", timestamp: new Date() },
       ]);
       setInput("");
     }
@@ -68,11 +69,11 @@ export default function DiaryChat({
                   message.sender === "user" ? "flex-row-reverse" : "flex-row"
                 }`}
               >
-                <Avatar className="w-8 h-8">
-                  <AvatarFallback>
-                    {message.sender === "ai" ? "📔" : "✍️"}
-                  </AvatarFallback>
-                </Avatar>
+                {message.sender === "ai" && (
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback>📔</AvatarFallback>
+                  </Avatar>
+                )}
                 <div
                   className={`mx-2 py-2 px-3 rounded-lg ${
                     message.sender === "user"
@@ -82,6 +83,12 @@ export default function DiaryChat({
                 >
                   {message.content}
                 </div>
+                <p className="text-xs text-muted-foreground mt-1 text-right">
+                  {message.timestamp.toLocaleString("ja-JP", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
               </div>
             </div>
           ))}

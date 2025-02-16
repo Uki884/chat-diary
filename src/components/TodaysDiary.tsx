@@ -7,6 +7,7 @@ type Message = {
   id: number
   content: string
   sender: "ai" | "user"
+  timestamp: Date
 }
 
 export default function TodaysDiary() {
@@ -16,7 +17,7 @@ export default function TodaysDiary() {
   useEffect(() => {
     const today = new Date()
     setDate(today.toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "long" }))
-    setMessages([{ id: 1, content: "今日はどんな1日でしたか？", sender: "ai" }])
+    setMessages([{ id: 1, content: "今日はどんな1日でしたか？", sender: "ai", timestamp: new Date() }])
   }, [])
 
   return (
