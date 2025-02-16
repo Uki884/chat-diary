@@ -59,7 +59,7 @@ export default function DiaryHistory() {
   };
 
   return (
-    <Card className="w-full max-w-4xl h-[80vh] flex flex-col dark:bg-gray-800 mx-auto">
+    <Card className="w-full max-w-4xl flex flex-col dark:bg-gray-800 mx-auto">
       <ScrollArea className="h-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {entries.map((entry) => (

@@ -9,7 +9,7 @@ export const FooterNav = () => {
           <Home size={24} />
           <span className="text-xs mt-1">ホーム</span>
         </Link>
-        <Link href="/diary-history" className="flex flex-col items-center p-2">
+        <Link href="#" className="flex flex-col items-center opacity-50 cursor-not-allowed">
           <Calendar size={24} />
           <span className="text-xs mt-1">カレンダー</span>
         </Link>
@@ -23,6 +23,6 @@ export const FooterNav = () => {
         </Link>
       </div>
     </nav>
-  )
+  );
 }
 
