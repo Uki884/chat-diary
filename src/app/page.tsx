@@ -1,10 +1,15 @@
-import DiaryHistory from "@/components/DiaryHistory";
+'use client'
+
+import { useSession } from '@supabase/auth-helpers-react'
+import DiaryHistory from '@/components/DiaryHistory'
 
 export default function Home() {
-  return (
-    <div className="flex flex-col gap-4 h-[80vh]">
-      <DiaryHistory />
-    </div>
-  );
+  const session = useSession()
+
+  if (!session) {
+    return null
+  }
+
+  return <DiaryHistory />;
 }
 
