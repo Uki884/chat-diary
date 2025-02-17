@@ -1,17 +1,5 @@
-"use client";
-
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, YStack, XStack, Text, ScrollView, Button, TextArea, Avatar } from "tamagui";
 
 export type Message = {
   id: number;
@@ -27,11 +15,9 @@ type DiaryChatProps = {
 };
 
 export default function DiaryChat({
-  id,
   date,
   initialMessages,
 }: DiaryChatProps) {
-  console.log("messages", initialMessages);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
 
@@ -46,68 +32,86 @@ export default function DiaryChat({
   };
 
   return (
-    <Card className="w-full max-w-2xl h-[80vh] flex flex-col dark:bg-gray-800 mx-auto">
-      <CardHeader className="text-center pb-4">
-        <CardTitle className="text-2xl flex items-center justify-between">
-          {date}
-          <Button variant="outline" onClick={handleSend} className="">
+    <Card width="100%" backgroundColor="$background">
+      <YStack flex={1} gap="$2">
+        <XStack padding="$4" justifyContent="space-between" alignItems="center">
+          <Text fontSize="$6" fontWeight="bold">
+            {date}
+          </Text>
+          <Button onPress={handleSend} variant="outlined">
             日記を終える
           </Button>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex-grow overflow-hidden">
-        <ScrollArea className="h-full">
+        </XStack>
+        <YStack padding="$4" gap="$2">
+          <ScrollView 
+          flex={1} 
+          padding="$4" 
+          contentContainerStyle={{ flexGrow: 1 }}
+          bounces={false}
+          height={'80vh'}
+        >
           {messages.map((message) => (
-            <div
+            <XStack
               key={message.id}
-              className={`flex ${
-                message.sender === "user" ? "justify-end" : "justify-start"
-              } mb-4`}
+              justifyContent={
+                message.sender === "user" ? "flex-end" : "flex-start"
+              }
+              marginVertical="$2"
             >
-              <div
-                className={`flex items-end ${
-                  message.sender === "user" ? "flex-row-reverse" : "flex-row"
-                }`}
+              <XStack
+                alignItems="flex-end"
+                flexDirection={
+                  message.sender === "user" ? "row-reverse" : "row"
+                }
+                gap="$2"
               >
                 {message.sender === "ai" && (
-                  <Avatar className="w-8 h-8">
-                    <AvatarFallback>📔</AvatarFallback>
+                  <Avatar circular size="$2">
+                    <Avatar.Fallback>
+                      <Text>📔</Text>
+                    </Avatar.Fallback>
                   </Avatar>
                 )}
-                <div
-                  className={`mx-2 py-2 px-3 rounded-lg ${
-                    message.sender === "user"
-                      ? "bg-[#e6f3ff] text-gray-800 dark:bg-blue-700 dark:text-white"
-                      : "bg-[#f0f0f0] text-gray-800 dark:bg-gray-600 dark:text-white"
-                  }`}
-                >
-                  {message.content}
-                </div>
-                <p className="text-xs text-muted-foreground mt-1 text-right">
-                  {message.timestamp.toLocaleString("ja-JP", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </p>
-              </div>
-            </div>
+                <YStack>
+                  <Card
+                    backgroundColor={
+                      message.sender === "user" ? "$blue8" : "$gray4"
+                    }
+                    padding="$3"
+                    borderRadius="$4"
+                  >
+                    <Text
+                      color={message.sender === "user" ? "white" : "$gray12"}
+                    >
+                      {message.content}
+                    </Text>
+                  </Card>
+                  <Text fontSize={10} color="$gray11" textAlign="right">
+                    {message.timestamp.toLocaleString("ja-JP", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Text>
+                </YStack>
+              </XStack>
+            </XStack>
           ))}
-        </ScrollArea>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-2">
-        <Textarea
-          placeholder="今日の出来事や感情を自由に書いてください..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-          className="w-full min-h-[100px] bg-white dark:bg-gray-700"
-        />
-        <div className="flex w-full space-x-2">
-          <Button onClick={handleSend} className="flex-1">
+        </ScrollView>
+        </YStack>
+        <YStack padding="$4" gap="$2">
+          <TextArea
+            size="$4"
+            placeholder="今日の出来事や感情を自由に書いてください..."
+            value={input}
+            onChangeText={setInput}
+            backgroundColor="$gray2"
+            minHeight={100}
+          />
+          <Button onPress={handleSend} theme="active">
             書く
           </Button>
-        </div>
-      </CardFooter>
+        </YStack>
+      </YStack>
     </Card>
   );
 }

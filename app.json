@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "newArchEnabled": true,
+    "name": "My app",
+    "slug": "my-app",
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "root": "src/expo"
+        }
+      ],
+      "expo-font"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.anonymous.my-app"
+    }
+  }
+}

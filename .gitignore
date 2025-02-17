@@ -45,3 +45,12 @@ next-env.d.ts
 
 # supabase
 supabase
+
+# ios
+ios
+
+#expo
+.expo
+
+#tamagui
+.tamagui
